@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .header img {
+  float: center;
+  width: 60px;
+  height: 60px;
+  background: #555;
+}
+    p.ex1 {
+  margin-left: 0.5cm;
+}
+    p.ex2 {
+  margin-left: 1cm;
+}
+</style>
+
+{% load static %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="{% static "js/jquery-2.1.1.min.js" %}"></script>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "css/bootstrap-datetimepicker.css" %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static "js/moment-with-locales.js" %}"></script>
+    <script src="{% static "js/bootstrap-datetimepicker.js" %}"></script>
+    <!-- load all required js/css yourself here -->
+    <img src="static/logo.jpg" alt="logo" />
+{% block content %}
+{% endblock %}
+</html>
