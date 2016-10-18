@@ -1,3 +1,13 @@
+__author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+
 import base64
 from Crypto.Cipher import AES
 from Crypto import Random

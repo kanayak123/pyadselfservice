@@ -13,6 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
+__author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+
 from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin

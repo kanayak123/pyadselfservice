@@ -1,3 +1,13 @@
+__author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+
 from django.shortcuts import render
 from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
