@@ -1,0 +1,59 @@
+<!-- __author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+-->
+
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<strong> <p class="ex1">This page will help you reset your Active Directory password. Before you begin with the reset, please ensure to read through the JIPL password policy. Without appropriate understanding of the policy, you might end up in issues while trying to change the password. Policy statement of the current password policy is give below:<br> </p>
+
+<h2> <b>Company Password Policy</b></h2>
+
+<p class="ex1"> Enforce password history:    5 passwords remembered <br>
+Maximum password age:        0 days <br>
+Minimum password age:        90 days <br>
+Minimum password length:     10 characters <br>
+Password must meet complexity requirements: Enabled (See below complexity requirements) <br> </p>
+
+<h4><b>Description of 'Password must meet complexity requirements'</b> </h4>
+<p class="ex1" > This security setting determines whether passwords must meet complexity requirements. Complexity requirements are enforced when passwords are changed or created.<br>
+If this policy is enabled, passwords must meet the following minimum requirements when they are changed or created:<br></p>
+<ul> 
+<p class="ex2"> <li> Passwords must not contain the user's entire samAccountName (Account Name) value or entire displayName (Full Name) value. Both checks are not case sensitive: </li>
+
+<li> The samAccountName is checked in its entirety only to determine whether it is part of the password. If the samAccountName is less than three characters long, this check is skipped. </li>
+
+<li> The displayName is parsed for delimiters: commas, periods, dashes or hyphens, underscores, spaces, pound signs, and tabs. If any of these delimiters are found, the displayName is split and all parsed sections (tokens) are confirmed not to be included in the password. Tokens that are less than three characters in length are ignored, and substrings of the tokens are not checked. For example, the name "Erin M. Hagens" is split into three tokens: "Erin," "M," and "Hagens." Because the second token is only one character long, it is ignored. Therefore, this user could not have a password that included either "erin" or "hagens" as a substring anywhere in the password. </li>
+
+<li> Passwords must contain characters from three of the following five categories:
+
+<ul>
+
+<li> Uppercase characters of European languages (A through Z, with diacritic marks, Greek and Cyrillic characters) </li>
+
+<li> Lowercase characters of European languages (a through z, sharp-s, with diacritic marks, Greek and Cyrillic characters) </li>
+
+<li> Base 10 digits (0 through 9) </li>
+
+<li>Nonalphanumeric characters: ~!@#$%^&*_-+=`|\(){}[]:;"'<>,.?/ </li> </ul>  </li>
+
+<li> Any Unicode character that is categorized as an alphabetic character but is not uppercase or lowercase. This includes Unicode characters from Asian languages. </li> <br>
+
+</p>
+
+<form method="post" role="form">
+    <table>
+       {{ form }}
+       {% csrf_token %}
+    </table>
+    <input type="submit" value="Submit" class="btn btn-primary" />
+    </form>
+</body>
+{% endblock %}
