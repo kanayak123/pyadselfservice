@@ -55,7 +55,7 @@ def do_validate(username, mail, attr3):
   try:
 # Search for attribute2 from settings
     sAMAccountName_filter = '(sAMAccountName=%s)' %username
-    conn.search(base_DN, sAMAccountName_filter, attributes=['mail'])
+    conn.search(base_DN, sAMAccountName_filter, attributes=[PYADSELFSERVICE_ATTR2])
     e = re.search(mail, str(conn.entries))
     e = str(e.group()).lower()
 
