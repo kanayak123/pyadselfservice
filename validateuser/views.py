@@ -13,6 +13,7 @@ from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.core.signing import TimestampSigner
 from django.core.mail.message import EmailMessage
+from django.conf import settings
 
 from urllib.parse import quote, unquote
 from Crypto.Cipher import AES
@@ -40,7 +41,7 @@ def Home(request):
 
 def ADValidate(request):
      getd = unquote(request.GET.get('token'))
-     tokenverify = signer.unsign(getd, max_age=300)
+     tokenverify = signer.unsign(getd, max_age=int(settings.PYADSELFSERVICE_STOUT))
      if request.method == 'POST':
         form = renderform(request.POST)
         if form.is_valid():
@@ -64,7 +65,7 @@ def ADValidate(request):
 
 def OTP(request):
      getd = unquote(request.GET.get('key'))
-     signerverify = signer.unsign(getd, max_age=300)
+     signerverify = signer.unsign(getd, max_age=int(settings.PYADSELFSERVICE_STOUT))
      if request.method == 'POST':
         form = renderotp(request.POST)
         if form.is_valid():
@@ -76,7 +77,7 @@ def OTP(request):
 
 def resetpass(request):
    getd = unquote(request.GET.get('key'))
-   crypted_data = signer.unsign(getd, max_age=300)
+   crypted_data = signer.unsign(getd, max_age=int(settings.PYADSELFSERVICE_STOUT))
    prim_key = {'username' : getd}
    if request.method == 'POST':
       form = passreset(request.POST)

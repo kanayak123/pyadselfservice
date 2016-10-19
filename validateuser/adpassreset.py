@@ -10,7 +10,7 @@ __status__ = "Production"
 
 import ldap3, sys, getpass, logging, time, ssl, re
 from django.conf import settings
-
+from os import makedirs
 #IP or FQDN of your domain controller
 dc_url = settings.PYADSELFSERVICE_DCFQDN
 
@@ -25,13 +25,13 @@ domain_password = settings.PYADSELFSERVICE_PASS
 base_DN = settings.PYADSELFSERVICE_BASEDN
 
 #Please cerate this path or change it to wherever you want to store the logs. Ensure to change the owner of the folder to web server user account like www-data
-logPath = settings.PYADSELFSERVICE_LOGPATH
+logPath = makedirs(settings.PYADSELFSERVICE_LOGPATH, mode=0o777, exist_ok=True) 
 
 #Path of the SSL certificate where the cert for LDAPs is stored. Refer to https://support.microsoft.com/en-in/kb/321051 for more details about enabling LDAPs on your domain.
 LDAPsCert = settings.PYADSELFSERVICE_LDAPSCERT
 
 #Feel free to format logs however you want
-LOG_FILENAME = (logPath + 'logs' + time.strftime("%Y%m%d")+ '.log')
+LOG_FILENAME = (settings.PYADSELFSERVICE_LOGPATH + '/logs' + time.strftime("%Y%m%d")+ '.log')
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
 ldap3.utils.log.set_library_log_detail_level(ldap3.utils.log.PROTOCOL)
 ldap3.utils.log.set_library_log_hide_sensitive_data(True)
@@ -65,7 +65,7 @@ def do_validate(username, mail, attr3):
   try:
 # Search for attribute2 from settings
     sAMAccountName_filter = '(sAMAccountName=%s)' %username
-    conn.search(base_DN, sAMAccountName_filter, attributes=[PYADSELFSERVICE_ATTR2])
+    conn.search(base_DN, sAMAccountName_filter, attributes=[settings.PYADSELFSERVICE_ATTR2])
     e = re.search(mail, str(conn.entries))
     e = str(e.group()).lower()
 

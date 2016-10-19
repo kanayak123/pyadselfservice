@@ -133,7 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "/opt/pyadselfservice/static/"
+STATIC_ROOT = "/opt/django-pyadselfservice/static/"
 
 #Your Google recaptcha codes. Please refer to https://developers.google.com/recaptcha/intro
 #Your 'Site key' goes here
@@ -143,7 +143,7 @@ RECAPTCHA_PRIVATE_KEY = 'Secret key here'
 RECAPTCHA_USE_SSL=True
 
 #Home page if the OTP validation fails
-OTP_LOGIN_URL='/validateuser'
+OTP_LOGIN_URL='/'
 
 #Your SMTP Relay server details for OTP trigger
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
@@ -164,13 +164,21 @@ PYADSELFSERVICE_PASS='prevuser_password'
 #Base DN of the domain
 PYADSELFSERVICE_BASEDN='DC=example,DC=local'
 
-#Please cerate this path or change it to wherever you want to store the logs. Ensure to change the owner of the folder to web server user account like www-data
-PYADSELFSERVICE_LOGPATH='/var/log/pyadselfservice/'
-
-#Path of the SSL certificate where the cert for LDAPs is stored. Refer to https://support.microsoft.com/en-in/kb/321051 for more details about enabling LDAPs on your domain.
-PYADSELFSERVICE_LDAPSCERT='/etc/ssl/certs/example_local_cert.cer'
 #This attribute must NOT be changed. You need this to trigger OTP email.
 PYADSELFSERVICE_ATTR2 = 'mail'
 
+#Path of the SSL certificate where the cert for LDAPs is stored. Refer to https://support.microsoft.com/en-in/kb/321051 for more details about enabling LDAPs on your domain.
+PYADSELFSERVICE_LDAPSCERT='/etc/ssl/certs/example_local_cert.cer'
+
+#Please cerate this path or change it to wherever you want to store the logs. Ensure to change the owner of the folder to web server user account like www-data
+PYADSELFSERVICE_LOGPATH='/var/log/pyadselfservice/'
+
+#Session time-out in seconds. This is for mainteaining the integrity of each password reset sessions. DONOT include quotes.
+PYADSELFSERVICE_STOUT='300'
+
+# Key for encryption/decryption of the parameters. The key must be either 16, 24, or 32 bytes long
+PYADSELFSERVICE_CRYPTKEY='1234567890123456'
+
 #The other attributed that you want to validate against
 PYADSELFSERVICE_ATTR3 = 'mobile'
+

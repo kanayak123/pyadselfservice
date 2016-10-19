@@ -11,8 +11,9 @@ __status__ = "Production"
 import base64
 from Crypto.Cipher import AES
 from Crypto import Random
+from django.conf import settings
 
-my_secret = 'HgFSg$$PhyhG!JHgjh33mn3jk5nb3m5b'
+my_secret = settings.PYADSELFSERVICE_CRYPTKEY
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS) 
