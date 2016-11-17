@@ -24,10 +24,9 @@ class renderotp(forms.Form):
 
 class renderform(forms.Form):
       username = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='Your current AD Username', required=True, label='Username')
-#      mail = forms.EmailField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), initial='@snapdeal.com', required=True, label='Office Email Address')
-      attr3 = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=True, label='Employee ID')
-      attr4 = forms.CharField(required=True, label='Date Of Birth(DD-MM-YYYY)', widget=DateTimePicker(options={"format": "DD-MM-YYYY",},attrs={'autocomplete': 'off'}))
-      attr5 = forms.CharField(required=True, label='Date Of Joining(DD-MM-YYYY)', widget=DateTimePicker(options={"format": "DD-MM-YYYY",},attrs={'autocomplete': 'off'}))
+      attr3 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR3, widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=True)
+      attr4 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR4,required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+      attr5 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR5, required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
       captcha = NoReCaptchaField()
 
 class passreset(forms.Form):
