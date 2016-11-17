@@ -34,8 +34,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'Your really long secret key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-#DEBUG = True
+#DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'validateuser',
-    'captcha',
+    'nocaptcha_recaptcha',
+    'zxcvbn_password',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -146,10 +148,12 @@ RECAPTCHA_USE_SSL=True
 OTP_LOGIN_URL='/'
 
 #Your SMTP Relay server details for OTP trigger
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='SMTP Server'
-EMAIL_PORT='SMTP Port'
-DEFAULT_FROM_EMAIL="(Sender) Sender Name <ad_otp@example.com>"
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'urID@gmail.com'
+EMAIL_HOST_PASSWORD = 'Your Password'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL="(Sender) Sender Name <urID@gmail.com>"
 
 #Settings for pyadselfservice
 #
@@ -168,7 +172,8 @@ PYADSELFSERVICE_BASEDN='DC=example,DC=local'
 PYADSELFSERVICE_ATTR2 = 'mail'
 
 #Path of the SSL certificate where the cert for LDAPs is stored. Refer to https://support.microsoft.com/en-in/kb/321051 for more details about enabling LDAPs on your domain.
-PYADSELFSERVICE_LDAPSCERT='/etc/ssl/certs/example_local_cert.cer'
+#PYADSELFSERVICE_LDAPSCERT='/etc/ssl/certs/example_local_cert.pem'
+#PYADSELFSERVICE_LDAPSPKEY='/etc/ssl/private/example_local_key.pem'
 
 #Please cerate this path or change it to wherever you want to store the logs. Ensure to change the owner of the folder to web server user account like www-data
 PYADSELFSERVICE_LOGPATH='/var/log/pyadselfservice/'
@@ -179,6 +184,50 @@ PYADSELFSERVICE_STOUT='300'
 # Key for encryption/decryption of the parameters. The key must be either 16, 24, or 32 bytes long
 PYADSELFSERVICE_CRYPTKEY='1234567890123456'
 
-#The other attributed that you want to validate against
+#The other attributes that you want to validate against
 PYADSELFSERVICE_ATTR3 = 'mobile'
+PYADSELFSERVICE_ATTR4 = 'homePhone'
+PYADSELFSERVICE_ATTR5 = 'pager'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': PYADSELFSERVICE_LOGPATH+'/debug.log',
+            'maxBytes': 1024*1024*5, # 5 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
+        'request_handler': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': PYADSELFSERVICE_LOGPATH+'/django_request.log',
+            'maxBytes': 1024*1024*5, # 5 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'django.request': {
+            'handlers': ['request_handler'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+    }
+}
+
+PASSWORD_MIN_LENGTH = 8
+PASSWORD_MIN_ENTROPY = 25

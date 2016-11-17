@@ -35,10 +35,8 @@ from validateuser import views
 handler500 = views.server_error
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^$',views.Home, name='Index0View'),
     url(r'^validateuser$', views.ADValidate, name='Index1View'),
     url(r'^otp$', views.OTP, name='Index3View'),
     url(r'^resetpass$',views.resetpass, name='Index4View'),
-#    url(r'^accounts/login/$', 'login', kwargs={'authentication_form': OTPAuthenticationForm}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

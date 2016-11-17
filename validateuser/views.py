@@ -18,14 +18,14 @@ from django.conf import settings
 from urllib.parse import quote, unquote
 from Crypto.Cipher import AES
 from Crypto import Random
-from pyotp import TOTP
+from pyotp import TOTP, random_base32
 
-from .forms import renderform, passreset, renderhome, renderotp
-from .adpassreset import do_validate, do_reset
+from .forms import renderform, passreset, renderotp, renderhome
+from .adpassreset import do_validate, do_reset, calc_base32
 from .crypt import encrypt_val, decrypt_val
 
 
-totp = TOTP('base32secret3232')
+#totp = TOTP('26GN6OWO5F3KX4QU')
 signer = TimestampSigner()
 template = loader.get_template('exception.html')
 
@@ -45,15 +45,8 @@ def ADValidate(request):
      if request.method == 'POST':
         form = renderform(request.POST)
         if form.is_valid():
-           username = form.cleaned_data['username']
-           mail = form.cleaned_data['mail']
-           attr3 = form.cleaned_data['attr3']
-#           attr4 = form.cleaned_data['attr4']
-           output = do_validate(username, mail, attr3)
+           output = do_validate(form.cleaned_data['username'], form.cleaned_data['attr3'], form.cleaned_data['attr4'], form.cleaned_data['attr5'])
            if output == 'YGFRafd827343wdhgFDHGFDSFGHVFSNC':
-             otp = totp.now()
-             email = EmailMessage(subject='OTP for AD Password Reset', body='Your OTP is %s ' % otp, to=[mail])
-             email.send()
              cipher_text = encrypt_val(form.cleaned_data['username'])
              data = signer.sign(cipher_text)
              return HttpResponseRedirect('/otp?key=' + quote(data))
@@ -69,7 +62,10 @@ def OTP(request):
      if request.method == 'POST':
         form = renderotp(request.POST)
         if form.is_valid():
-           otp = totp.verify(form.cleaned_data['otp'])
+           decrypted_value = decrypt_val(getd)
+           base32 = calc_base32(decrypted_value.decode("utf-8"))
+           totp = TOTP(base32)
+           otp = totp.verify(form.cleaned_data['otp'], valid_window=5)
            data = signer.sign(getd)
            if otp == True:
              return HttpResponseRedirect('/resetpass?key=' + quote(data))
@@ -88,20 +84,20 @@ def resetpass(request):
          if newpassword and newpassword != confirmpassword:
             value = "Your New Password and Confirm Password did not match. Please go back and try again."
             return HttpResponseServerError(template.render(Context({'exception_value': value,})))
-#            return HttpResponse('Your New Password and Confirm Password did not match. Please go back and try again.', content_type="text/plain")
          else:
             output = do_reset(decrypted_value.decode("utf-8"), form.cleaned_data['confirmpassword'])
-            value = str(output)
-            return HttpResponseServerError(template.render(Context({'exception_value': value,})))
-#            return HttpResponse(output, content_type="text/plain")
+            if 'success' in output:
+               value = str(output)
+               return HttpResponseServerError(loader.get_template('success.html').render(Context({'exception_value': value,})))
+            else:
+               value = str(output)
+               return HttpResponseServerError(template.render(Context({'exception_value': value,})))
       else:
-         value = "There is some error with your request. Please consult IT Support Team."
+         value = "Your new password does not comply with password policy. Please go back and try again."
          return HttpResponseServerError(template.render(Context({'exception_value': value,})))
- #         return HttpResponse('There is some error with your request. Please consult IT Support Team.', content_type="text/plain")
-   return render(request, 'index.html', {'form': passreset(initial=prim_key)})
+   return render(request, 'resetpass.html', {'form': passreset(initial=prim_key)})
 
 def server_error(request):
-    # Dict to pass to template, data could come from DB query
     t = loader.get_template('exception.html')
     value = "Your session is expired. Please close this window and start over."
     return HttpResponseServerError(t.render(Context({'exception_value': value,})))

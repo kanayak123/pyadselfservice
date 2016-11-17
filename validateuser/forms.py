@@ -10,31 +10,27 @@ __status__ = "Production"
 
 from django import forms
 from bootstrap3_datetime.widgets import DateTimePicker
-from captcha.fields import ReCaptchaField
 from django.conf import settings
+from nocaptcha_recaptcha.fields import NoReCaptchaField
+
+from zxcvbn_password.fields import PasswordField, PasswordConfirmationField
 
 
 class renderhome(forms.Form):
-      agreement = forms.BooleanField(required=True, label='I have gone through all the password policy statement. I am ready with a password that comply with this policy statement and I want to continue.  ')
-      fields = ['agreement']
+      agreement = forms.BooleanField(required=False, widget=forms.HiddenInput)
 
 class renderotp(forms.Form):
-      otp = forms.CharField(help_text='otp is sent to your official email ID.', required=True, label='OTP')
+      otp = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='otp is sent to your official email ID.', required=True, label='OTP')
 
 class renderform(forms.Form):
-      username = forms.CharField(help_text='Your current AD User Name', required=True, label='Your User Name')
-      mail = forms.EmailField(initial='@example.com', required=True, label='Email Address')
-      attr3 = forms.CharField(required=True, label=str(settings.PYADSELFSERVICE_ATTR3))
-#      dob = forms.DateField(required=True, label='Your DOB', widget=DateTimePicker(options={"format": "YYYY-MM-DD",}))
-      captcha = ReCaptchaField(attrs={'theme' : 'clean'})
-
+      username = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='Your current AD Username', required=True, label='Username')
+#      mail = forms.EmailField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), initial='@snapdeal.com', required=True, label='Office Email Address')
+      attr3 = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=True, label='Employee ID')
+      attr4 = forms.CharField(required=True, label='Date Of Birth(DD-MM-YYYY)', widget=DateTimePicker(options={"format": "DD-MM-YYYY",},attrs={'autocomplete': 'off'}))
+      attr5 = forms.CharField(required=True, label='Date Of Joining(DD-MM-YYYY)', widget=DateTimePicker(options={"format": "DD-MM-YYYY",},attrs={'autocomplete': 'off'}))
+      captcha = NoReCaptchaField()
 
 class passreset(forms.Form):
-      username = forms.CharField(required=True, widget=forms.HiddenInput()) 
-      newpassword = forms.CharField(help_text='Ensure the password is according to the password policy', widget=forms.PasswordInput, required=False, label='Your New Password')
-      confirmpassword = forms.CharField(widget=forms.PasswordInput, required=False, label='Confirm Password')
-      fields = ['username', 'newpassword', 'confirmpassword']
-#      def clean_name(self):
-#        if not self['username'].html_name in self.data:
-#            return self.fields['username'].initial
-#        return self.cleaned_data['username']
+      username = forms.CharField(required=True, widget=forms.HiddenInput(attrs={'autocomplete': 'off'})) 
+      newpassword = PasswordField(label='New Password',)
+      confirmpassword = PasswordConfirmationField(label='Confirm Password', confirm_with='newpassword')
