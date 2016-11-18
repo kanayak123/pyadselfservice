@@ -3,3 +3,5 @@
 
 ######Please refer to this link for documentation
 ######http://blogger.iamamazing.in/2016/10/web-based-python3-password-reset-tool.html
+
+For Support and suggestions, please create a issue on GIT https://github.com/kanayak123/pyadselfservice/issues
