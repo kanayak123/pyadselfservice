@@ -4,4 +4,4 @@
 ### Please refer to this link for documentation
 ##http://blogger.iamamazing.in/2016/10/web-based-python3-password-reset-tool.html
 	
-#### Created on Python 3.5, this project aims to create open source tools for Microsoft Active Directory, and allow you to customize it. The first phase of this project is designed to allow resetting of password of an active directory user, through validation and OTP sent to the user email ID.
+#### Created on Python 3.5, this project aims to provide easy 3 steps Web GUI to end users to reset their own AD account password. The important feature of this tool is that users wont need to remember thier current passowrd. The reset is completely on configurable attribute validations. Many security concerns are considerd while developing this tool.
