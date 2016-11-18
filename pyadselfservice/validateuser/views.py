@@ -69,7 +69,7 @@ def OTP(request):
            data = signer.sign(getd)
            if otp == True:
              return HttpResponseRedirect('/resetpass?key=' + quote(data))
-     return render(request, 'index.html', {'form': renderotp()})
+     return render(request, 'otp.html', {'form': renderotp()})
 
 def resetpass(request):
    getd = unquote(request.GET.get('key'))

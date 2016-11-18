@@ -10,14 +10,6 @@ __status__ = "Production"
 -->
 {% extends 'base.html' %}
 {% block content %}
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
 <body>
   <form method="post" role="form">
      <table>
@@ -28,7 +20,6 @@ __status__ = "Production"
   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">View Password Policy</button>
   <input type="submit" value="Submit" class="btn btn-primary" />
 
-  </form>
 <div class="container">
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -47,5 +38,7 @@ __status__ = "Production"
     </div>
   </div>
 </div>
+
+</form>
 </body>
 {% endblock %}

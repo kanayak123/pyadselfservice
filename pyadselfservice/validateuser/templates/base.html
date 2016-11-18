@@ -12,31 +12,27 @@ __status__ = "Production"
 <!DOCTYPE html>
 <html>
 <style>
+    .header img {
+  float: center;
+  width: 60px;
+  height: 60px;
+  background: #555;
+}
     p.ex1 {
   margin-left: 0.1cm;
 }
     p.ex2 {
   margin-left: 0.3cm;
 }
-
 </style>
 
 <head>
 {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="{% static "bootstrap-3.3.7-dist/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "bootstrap-3.3.7-dist/js/npm.js" %}"></script>
-    <script src="{% static "jquery-ui-1.12.1/jquery-ui.min.js" %}"></script>
-    <link href="{% static "bootstrap-3.3.7-dist/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static "bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static "jquery-ui-1.12.1/jquery-ui.min.css" %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static "jquery-ui-1.12.1/jquery-ui.structure.min.css" %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static "jquery-ui-1.12.1/jquery-ui.theme.min.css" %}" rel="stylesheet" type="text/css"/>
-    <script src="{% static "js/jquery-2.1.1.min.js" %}"></script>
-    <link href="{% static "css/bootstrap-datetimepicker.css" %}" rel="stylesheet" type="text/css"/>
-    <script src="{% static "js/moment-with-locales.js" %}"></script>
-    <script src="{% static "js/bootstrap-datetimepicker.js" %}"></script>
-    <img src="{% static "logo.jpg" %}" alt="logo" border="3" align="center"/>
+    <img src="{% static "logo.jpg" %}" alt="logo" />
     <!-- load all required js/css yourself here -->
 </head>
 

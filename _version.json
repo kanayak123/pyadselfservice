@@ -1,0 +1,11 @@
+{
+    "package_folder": ".",
+    "email": "kanayak123@yahoo.co.in",
+    "status": "5 - Production/Stable",
+    "package_name": "pyadselfservice",
+    "url": "https://github.com/kanayak123/pyadselfservice",
+    "description": "A tool for web based password reset interface to the end users, for their Active Directory account.",
+    "author": "Amith Nayak",
+    "version": "v1.1",
+    "license": "LGPL v3"
+}
