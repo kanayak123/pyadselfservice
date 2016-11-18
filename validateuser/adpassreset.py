@@ -89,6 +89,7 @@ def do_reset(username, newpass):
                   paged_size = 1)
       for entry in conn.response:
          user_dn = entry['dn']
+         conn.extend.microsoft.unlock_account(user_dn)
          conn.extend.microsoft.modify_password(user_dn, newpass, old_password=None)
 	  #Store protocol response in varriable
          msg = str(conn.result)
