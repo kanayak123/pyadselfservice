@@ -1,1 +1,22 @@
-pyadselfservice is a tool created on Python 3.5 and Django framework. This project aims to provide web based password reset interface to the end users, for their Active Directory account. The important feature of this tool is that the users won't not need to remember their current password. The reset is completely based on configurable AD attributes and One Time Password(OTP) validations. Many security concerns are considers while developing this tool. The tool is designed to query Domain Controller of your Active Directory Domain through LDAPs to query and modify schema attributes. Therefore, the password reset is a realtime process without storing any information in the Database or cache.
+.. pyadselfservice documentation master file, created by
+   sphinx-quickstart on Mon Nov 21 16:52:24 2016.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to pyadselfservice's documentation!
+===========================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
