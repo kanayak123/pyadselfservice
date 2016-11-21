@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # pyadselfservice documentation build configuration file, created by
-# sphinx-quickstart on Mon Nov 21 16:52:24 2016.
+# sphinx-quickstart on Mon Nov 21 17:15:17 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -50,8 +50,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pyadselfservice'
-copyright = '2016, Amith Nayak'
-author = 'Amith Nayak'
+copyright = '2016, Amith Nayak (kanayak123@yahoo.co.in)'
+author = 'Amith Nayak (kanayak123@yahoo.co.in)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -261,7 +261,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'pyadselfservice.tex', 'pyadselfservice Documentation',
-     'Amith Nayak', 'manual'),
+     'Amith Nayak (kanayak123@yahoo.co.in)', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
