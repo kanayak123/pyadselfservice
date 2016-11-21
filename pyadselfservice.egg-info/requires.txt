@@ -1,8 +1,0 @@
-Django==1.10.3
-django-bootstrap3-datetimepicker-2==2.4.2
-django-nocaptcha-recaptcha==0.0.19
-django-zxcvbn-password==1.0.5
-ldap3==2.1.0
-pycrypto==2.6.1
-pyotp==2.2.1
-zxcvbn-py3==1.1
