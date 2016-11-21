@@ -10,11 +10,10 @@ __status__ = "Production"
 -->
 {% extends 'base.html' %}
 {% block content %}
-{% load static %}
-    <link href="{% static "css/bootstrap-datetimepicker.css" %}" rel="stylesheet" type="text/css"/>
-    <script src="{% static "js/moment-with-locales.js" %}"></script>
-    <script src="{% static "js/jquery-2.1.1.min.js" %}"></script>
-    <script src="{% static "js/bootstrap-datetimepicker.js" %}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment-with-locales.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+
 <body>
   <form method="post" role="form">
      <table>

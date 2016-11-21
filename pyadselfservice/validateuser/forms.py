@@ -24,8 +24,8 @@ class renderotp(forms.Form):
 
 class renderform(forms.Form):
       username = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='Your current AD Username', required=True, label='Username')
-      attr3 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR3, widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=True)
-      attr4 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR4,required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+      attr3 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR3, help_text='Alphabets are case sensitive for all the fields exept Username', widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=True)
+      attr4 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR4, required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
       attr5 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR5, required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
       captcha = NoReCaptchaField()
 

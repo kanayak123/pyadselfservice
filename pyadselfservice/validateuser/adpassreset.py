@@ -14,9 +14,8 @@ from os import makedirs
 from django.core.mail.message import EmailMessage
 from pyotp import TOTP, random_base32
 
-ldap3.utils.log.set_library_log_detail_level(ldap3.utils.log.EXTENDED)
+ldap3.utils.log.set_library_log_detail_level(ldap3.utils.log.BASIC)
 ldap3.utils.log.set_library_log_hide_sensitive_data(True)
-#totp = TOTP('26GN6OWO5F3KX4QU')
 server = ldap3.Server(host = settings.PYADSELFSERVICE_DCFQDN, port = int(settings.PYADSELFSERVICE_DCPORT), use_ssl=True, tls = ldap3.Tls(validate=ssl.CERT_NONE))
 
 #Function to validate the AD attributes of a user account. In this example, we are validating user against User Logon Name(sAMAccountName), Email ID (mail) and Job Title(title) attributes. You add any custom attributes to validate against.
@@ -51,10 +50,10 @@ def do_validate(username, attr3, attr4, attr5):
     attR4 = str(attR4.group()).lower()
     attR3 = re.search(attr3, str(conn.entries))
     attR3 = str(attR3.group()).lower()
-    if attR5 == attr5:
-       if attR4 == attr4:
-          if attR3 == attr3:
-             base32 = calc_base32(username)
+    if attR5 == attr5.lower():
+       if attR4 == attr4.lower():
+          if attR3 == attr3.lower():
+             base32 = calc_base32(username)        
              totp = TOTP(base32)
              otp = totp.now()
              email = EmailMessage(subject='OTP for AD Password Reset', body='Your OTP is %s ' % otp, to=[str(conn.entries[0].mail.value)])
