@@ -14,7 +14,9 @@ from os import makedirs
 from django.core.mail.message import EmailMessage
 from pyotp import TOTP, random_base32
 
-ldap3.utils.log.set_library_log_detail_level(ldap3.utils.log.BASIC)
+from .crypt import encrypt_val, decrypt_val
+
+ldap3.utils.log.set_library_log_detail_level(ldap3.utils.log.EXTENDED)
 ldap3.utils.log.set_library_log_hide_sensitive_data(True)
 server = ldap3.Server(host = settings.PYADSELFSERVICE_DCFQDN, port = int(settings.PYADSELFSERVICE_DCPORT), use_ssl=True, tls = ldap3.Tls(validate=ssl.CERT_NONE))
 
@@ -24,17 +26,17 @@ def do_validate(username, attr3, attr4, attr5):
 
 #Binds session to the server and opens a connection
   try:
-    conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) 
+    conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True)
   except:
     return ('Server Error. Could not connect to Domain Controller')
     try:
-      conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) 
+      conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True)
     except:
       return ('Server Error. Could not connect to Domain Controller')
       try:
         conn = ldap3.Connection(server, '%s@' + settings.PYADSELFSERVICE_DOMAINFQDN, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) %username
       except:
-        return ('Server Error. Could not connect to Domain Controller') 
+        return ('Server Error. Could not connect to Domain Controller')
         sys.exit(0)
 
 #Searches LDAP and validate against attributes
@@ -45,15 +47,15 @@ def do_validate(username, attr3, attr4, attr5):
                 search_scope = ldap3.SUBTREE,
                 attributes = ['cn', settings.PYADSELFSERVICE_ATTR2, settings.PYADSELFSERVICE_ATTR3, settings.PYADSELFSERVICE_ATTR4, settings.PYADSELFSERVICE_ATTR5])
     attR5 = re.search(attr5, str(conn.entries))
-    attR5 = str(attR5.group()).lower()
+    attR5 = str(attR5.group())
     attR4 = re.search(attr4, str(conn.entries))
-    attR4 = str(attR4.group()).lower()
+    attR4 = str(attR4.group())
     attR3 = re.search(attr3, str(conn.entries))
-    attR3 = str(attR3.group()).lower()
-    if attR5 == attr5.lower():
-       if attR4 == attr4.lower():
-          if attR3 == attr3.lower():
-             base32 = calc_base32(username)        
+    attR3 = str(attR3.group())
+    if attR5 == attr5:
+       if attR4 == attr4:
+          if attR3 == attr3:
+             base32 = calc_base32(encrypt_val(username))
              totp = TOTP(base32)
              otp = totp.now()
              email = EmailMessage(subject='OTP for AD Password Reset', body='Your OTP is %s ' % otp, to=[str(conn.entries[0].mail.value)])
@@ -63,19 +65,20 @@ def do_validate(username, attr3, attr4, attr5):
         return ('Please verify the entered values. It does not match with AD')
   except:
     return ('Wrong username. Please verify if the username entered is accurate. If you still think the username is correct, please report this error to IT Support Team')
-#  logging.shutdown()
 
 def do_reset(username, newpass):
+    username = decrypt_val(username)
+    username = username.decode("utf-8")
     try:
-      conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) 
+      conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True)
     except:
       return ('Server Error. Could not connect to Domain Controller')
       try:
-         conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) 
+         conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True)
       except:
          return ('Server Error. Could not connect to Domain Controller')
          try:
-            conn = ldap3.Connection(server, '%s@' + domain, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) %username 
+            conn = ldap3.Connection(server, '%s@' + domain, password = settings.PYADSELFSERVICE_PASS, auto_bind=True) %username
          except:
             return ('Server Error. Could not connect to Domain Controller')
             sys.exit(0)
@@ -90,7 +93,7 @@ def do_reset(username, newpass):
          user_dn = entry['dn']
          conn.extend.microsoft.unlock_account(user_dn)
          conn.extend.microsoft.modify_password(user_dn, newpass, old_password=None)
-	  #Store protocol response in varriable
+          #Store protocol response in varriable
          msg = str(conn.result)
          msg = msg.lower()
          if 'success' in msg:
@@ -100,9 +103,10 @@ def do_reset(username, newpass):
     except:
       return ('Error setting AD password. Please verify network connectivity from this server to Domain Controller')
       sys.exit(0)
-#    logging.shutdown()
 
 def calc_base32(username):
+  username = decrypt_val(username)
+  username = username.decode("utf-8")
   conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True)
   try:
     conn.search(search_base = settings.PYADSELFSERVICE_BASEDN,

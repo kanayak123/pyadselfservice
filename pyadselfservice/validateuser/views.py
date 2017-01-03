@@ -22,10 +22,9 @@ from pyotp import TOTP, random_base32
 
 from .forms import renderform, passreset, renderotp, renderhome
 from .adpassreset import do_validate, do_reset, calc_base32
-from .crypt import encrypt_val, decrypt_val
+from .crypt import encrypt_val #, decrypt_val
 
 
-#totp = TOTP('26GN6OWO5F3KX4QU')
 signer = TimestampSigner()
 template = loader.get_template('exception.html')
 
@@ -62,14 +61,13 @@ def OTP(request):
      if request.method == 'POST':
         form = renderotp(request.POST)
         if form.is_valid():
-           decrypted_value = decrypt_val(getd)
-           base32 = calc_base32(decrypted_value.decode("utf-8"))
+           base32 = calc_base32(signerverify)
            totp = TOTP(base32)
            otp = totp.verify(form.cleaned_data['otp'], valid_window=5)
-           data = signer.sign(getd)
+           data = signer.sign(signerverify)
            if otp == True:
              return HttpResponseRedirect('/resetpass?key=' + quote(data))
-     return render(request, 'otp.html', {'form': renderotp()})
+     return render(request, 'index.html', {'form': renderotp()})
 
 def resetpass(request):
    getd = unquote(request.GET.get('key'))
@@ -78,14 +76,14 @@ def resetpass(request):
    if request.method == 'POST':
       form = passreset(request.POST)
       if form.is_valid():
-         decrypted_value = decrypt_val(getd)
+         base32 = calc_base32(crypted_data)
          newpassword = form.cleaned_data['newpassword']
          confirmpassword = form.cleaned_data['confirmpassword']
          if newpassword and newpassword != confirmpassword:
             value = "Your New Password and Confirm Password did not match. Please go back and try again."
             return HttpResponseServerError(template.render(Context({'exception_value': value,})))
          else:
-            output = do_reset(decrypted_value.decode("utf-8"), form.cleaned_data['confirmpassword'])
+            output = do_reset(crypted_data, form.cleaned_data['confirmpassword'])
             if 'success' in output:
                value = str(output)
                return HttpResponseServerError(loader.get_template('success.html').render(Context({'exception_value': value,})))
