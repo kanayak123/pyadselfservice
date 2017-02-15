@@ -20,14 +20,14 @@ class renderhome(forms.Form):
       agreement = forms.BooleanField(required=False, widget=forms.HiddenInput)
 
 class renderotp(forms.Form):
-      otp = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='otp is sent to your official email ID.', required=True, label='OTP')
+      otp = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='OTP is sent to your email ID. OTP is valid for 5 mins.', required=True, label='OTP')
 
 class renderform(forms.Form):
       username = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), help_text='Your current AD Username', required=True, label='Username')
-      attr3 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR3, help_text='All fields, except username, are case sensitive', widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=True)
-      attr4 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR4, required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
-      attr5 = forms.CharField(label=settings.PYADSELFSERVICE_ATTR5, required=True, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
-      captcha = NoReCaptchaField()
+      attr3 = forms.CharField(required=True, label=settings.PYADSELFSERVICE_ATTR3, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+      attr4 = forms.CharField(required=True, label=settings.PYADSELFSERVICE_ATTR4, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+      attr5 = forms.CharField(required=True, label=settings.PYADSELFSERVICE_ATTR5, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+      captcha = NoReCaptchaField(label='')
 
 class passreset(forms.Form):
       username = forms.CharField(required=True, widget=forms.HiddenInput(attrs={'autocomplete': 'off'})) 

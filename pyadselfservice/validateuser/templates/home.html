@@ -12,7 +12,8 @@ __status__ = "Production"
 {% extends 'base.html' %}
 {% block content %}
 <body>
-<strong> <p class="ex1">This is a self-service portal, designed to help users reset thier Active Directory password. It is important that you read your company 'Password Policy' to compose a valid and secure password.<br></p>
+<strong><p class="ex2">This is a self-service portal, designed to help users reset thier Active Directory password. It is important that you read your company 'Password Policy' to compose a valid and secure password. However, a ideal password policy will consist below policies.<br></p></strong>
+<ul class="a"><li>Password must be unique without reusing any of your previous 5 passwords</li><li>It must be no less than eight (8) characters and should be a complex mix of uppercase/lowercase/numbers/special characters</li><li>Should not contain your First or Last Name</li></ul>
 <form method="post" role="form">
     <table>
        {{ form }}

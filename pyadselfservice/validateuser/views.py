@@ -8,6 +8,7 @@ __email__ = "kanayak123@yahoo.co.in"
 __status__ = "Production"
 #Refer to my blogs http://blogger.iAMAmazing.in/
 
+
 from django.shortcuts import render
 from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError

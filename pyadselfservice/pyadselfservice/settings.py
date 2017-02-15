@@ -171,15 +171,11 @@ PYADSELFSERVICE_BASEDN='DC=example,DC=local'
 #This attribute must NOT be changed. You need this to trigger OTP email.
 PYADSELFSERVICE_ATTR2 = 'mail'
 
-#Path of the SSL certificate where the cert for LDAPs is stored. Refer to https://support.microsoft.com/en-in/kb/321051 for more details about enabling LDAPs on your domain.
-#PYADSELFSERVICE_LDAPSCERT='/etc/ssl/certs/example_local_cert.pem'
-#PYADSELFSERVICE_LDAPSPKEY='/etc/ssl/private/example_local_key.pem'
-
 #Please cerate this path or change it to wherever you want to store the logs. Ensure to change the owner of the folder to web server user account like www-data
 PYADSELFSERVICE_LOGPATH='/var/log/pyadselfservice/'
 
 #Session time-out in seconds. This is for mainteaining the integrity of each password reset sessions. DONOT include quotes.
-PYADSELFSERVICE_STOUT='300'
+PYADSELFSERVICE_STOUT='900'
 
 # Key for encryption/decryption of the parameters. The key must be either 16, 24, or 32 bytes long
 PYADSELFSERVICE_CRYPTKEY='1234567890123456'
@@ -191,38 +187,34 @@ PYADSELFSERVICE_ATTR5 = 'mobile'
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+            'format': '%(asctime)s %(levelname)s %(module)s %(process)d %(thread)d %(funcName)s %(message)s'
         },
     },
     'handlers': {
-        'default': {
+        'ldap_logs': {
             'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PYADSELFSERVICE_LOGPATH+'/debug.log',
-            'maxBytes': 1024*1024*5, # 5 MB
-            'backupCount': 5,
             'formatter':'standard',
         },
-        'request_handler': {
+        'http_logs': {
             'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PYADSELFSERVICE_LOGPATH+'/django_request.log',
-            'maxBytes': 1024*1024*5, # 5 MB
-            'backupCount': 5,
             'formatter':'standard',
         },
     },
     'loggers': {
         '': {
-            'handlers': ['default'],
+            'handlers': ['ldap_logs'],
             'level': 'DEBUG',
             'propagate': True
         },
         'django.request': {
-            'handlers': ['request_handler'],
+            'handlers': ['http_logs'],
             'level': 'DEBUG',
             'propagate': False
         },
@@ -230,4 +222,4 @@ LOGGING = {
 }
 
 PASSWORD_MIN_LENGTH = 8
-PASSWORD_MIN_ENTROPY = 25
+PASSWORD_MIN_ENTROPY = 5
