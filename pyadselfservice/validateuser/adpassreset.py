@@ -98,7 +98,7 @@ def do_reset(username, newpass):
          user_dn = entry['dn']
          conn.extend.microsoft.unlock_account(user_dn)
          try:
-            conn = ldap3.Connection(server, username + '@jasperindia.local', newpass, auto_bind=True)
+            conn = ldap3.Connection(server, username + '@' + settings.PYADSELFSERVICE_DOMAINFQDN, newpass, auto_bind=True)
             conn.extend.microsoft.modify_password(user_dn, newpass, old_password=newpass)
             msg = str(conn.result)
             if 'constraintViolation' in msg:

@@ -159,11 +159,13 @@ DEFAULT_FROM_EMAIL="(Sender) Sender Name <urID@gmail.com>"
 #
 #IP or FQDN of your domain controller
 PYADSELFSERVICE_DCFQDN='dc1.example.local'
+
 #FQDN of your Domain/Forest
 PYADSELFSERVICE_DOMAINFQDN='example.local'
-#Credentials with at least password reset and read user property permission in AD
+
+#Credentials with at least "Read all properties", "Reset password", "Read/Write lockoutTime" permissions on AD, Please refer to "Section 2" of my blog http://blogger.iamamazing.in/2016/10/web-based-python3-password-reset-tool.html
 PYADSELFSERVICE_USERNAME='prevuser@example.local'
-PYADSELFSERVICE_PASS='prevuser_password'
+PYADSELFSERVICE_PASS='prevuser password'
 
 #Base DN of the domain
 PYADSELFSERVICE_BASEDN='DC=example,DC=local'
