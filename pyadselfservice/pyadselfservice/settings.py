@@ -135,7 +135,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "/opt/pyadselfservice/pyadselfservice/static"
+STATIC_ROOT = "/opt/pyadselfservice/pyadselfservice/static/"
 
 #Your Google recaptcha codes. Please refer to https://developers.google.com/recaptcha/intro
 #Your 'Site key' goes here
