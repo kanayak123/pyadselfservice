@@ -156,12 +156,12 @@ DEFAULT_FROM_EMAIL="(Sender) Sender Name <urID@gmail.com>"
 
 #Settings for pyadselfservice
 #
-#IP or FQDN of your domain controller
+#IP or FQDN of your domain controller and LDAPs Port. The default port number for LDAPs is 636.
 PYADSELFSERVICE_DCFQDN='dc1.example.local'
+PYADSELFSERVICE_DCPORT = '636'
 
 #FQDN of your Domain/Forest
 PYADSELFSERVICE_DOMAINFQDN='example.local'
-PYADSELFSERVICE_DCPORT = '636'
 
 #Credentials with at least "Read all properties", "Reset password", "Read/Write lockoutTime" permissions on AD, Please refer to "Section 2" of my blog http://blogger.iamamazing.in/2016/10/web-based-python3-password-reset-tool.html
 PYADSELFSERVICE_USERNAME='prevuser@example.local'
