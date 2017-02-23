@@ -135,7 +135,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "/opt/django-pyadselfservice/static/"
+STATIC_ROOT = "/opt/pyadselfservice/pyadselfservice/static"
 
 #Your Google recaptcha codes. Please refer to https://developers.google.com/recaptcha/intro
 #Your 'Site key' goes here
@@ -162,6 +162,7 @@ PYADSELFSERVICE_DCFQDN='dc1.example.local'
 
 #FQDN of your Domain/Forest
 PYADSELFSERVICE_DOMAINFQDN='example.local'
+PYADSELFSERVICE_DCPORT = '636'
 
 #Credentials with at least "Read all properties", "Reset password", "Read/Write lockoutTime" permissions on AD, Please refer to "Section 2" of my blog http://blogger.iamamazing.in/2016/10/web-based-python3-password-reset-tool.html
 PYADSELFSERVICE_USERNAME='prevuser@example.local'
