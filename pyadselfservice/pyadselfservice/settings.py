@@ -176,7 +176,7 @@ PYADSELFSERVICE_ATTR2 = 'mail'
 #Please cerate this path or change it to wherever you want to store the logs. Ensure to change the owner of the folder to web server user account like www-data
 PYADSELFSERVICE_LOGPATH='/var/log/pyadselfservice/'
 
-#Session time-out in seconds. This is for mainteaining the integrity of each password reset sessions. DONOT include quotes.
+#Each password reset session will be valid for 900secs (15mins), within which user must complete thier password reset. You can increase as per need.
 PYADSELFSERVICE_STOUT='900'
 
 # Key for encryption/decryption of the parameters. The key must be either 16, 24, or 32 bytes long
