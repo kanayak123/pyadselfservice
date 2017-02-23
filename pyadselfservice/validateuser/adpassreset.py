@@ -24,9 +24,9 @@ server = ldap3.Server(host = settings.PYADSELFSERVICE_DCFQDN, port = int(setting
 #Function to validate the AD attributes of a user account. In this example, we are validating user against User Logon Name(sAMAccountName), Email ID (mail) and Job Title(title) attributes. You add any custom attributes to validate against.
 def do_validate(username, attr3, attr4, attr5):
   username = str(username).lower()
-  attr3 = str(attr3).lower()
-  attr4 = str(attr4).lower()
-  attr5 = str(attr5).lower()
+  attr3 = re.escape(str(attr3).lower())
+  attr4 = re.escape(str(attr4).lower())
+  attr5 = re.escape(str(attr5).lower())
 
 #Binds session to the server and opens a connection
   try:
@@ -52,10 +52,13 @@ def do_validate(username, attr3, attr4, attr5):
                 attributes = ['cn', settings.PYADSELFSERVICE_ATTR2, settings.PYADSELFSERVICE_ATTR3, settings.PYADSELFSERVICE_ATTR4, settings.PYADSELFSERVICE_ATTR5])
     attR5 = re.search(attr5, str(conn.entries).lower())
     attR5 = str(attR5.group())
+    attR5 = re.escape(attR5)    
     attR4 = re.search(attr4, str(conn.entries).lower())
     attR4 = str(attR4.group())
+    attR4 = re.escape(attR4)
     attR3 = re.search(attr3, str(conn.entries).lower())
     attR3 = str(attR3.group())
+    attR3 = re.escape(attR3)
     if attR5.lower() == attr5:
        if attR4.lower() == attr4:
           if attR3.lower() == attr3:
