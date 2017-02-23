@@ -139,10 +139,9 @@ STATIC_ROOT = "/opt/pyadselfservice/pyadselfservice/static"
 
 #Your Google recaptcha codes. Please refer to https://developers.google.com/recaptcha/intro
 #Your 'Site key' goes here
-RECAPTCHA_PUBLIC_KEY = 'Site key here'
+NORECAPTCHA_SITE_KEY = 'Site key here'
 #Your 'Secret key' goes here
-RECAPTCHA_PRIVATE_KEY = 'Secret key here'
-RECAPTCHA_USE_SSL=True
+NORECAPTCHA_SECRET_KEY = 'Secret key here'
 
 #Home page if the OTP validation fails
 OTP_LOGIN_URL='/'
