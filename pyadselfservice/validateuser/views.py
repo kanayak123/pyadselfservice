@@ -51,7 +51,8 @@ def ADValidate(request):
              data = signer.sign(cipher_text)
              return HttpResponseRedirect('/otp?key=' + quote(data))
            else:
-             value = "You have entered invalid details. Please go back and try again"
+#             value = "You have entered invalid details. Please go back and try again %s" %str(output)
+             value = str(output)
              return HttpResponseServerError(template.render(Context({'exception_value': value,})))
             
      return render(request, 'index.html', {'form': renderform()})

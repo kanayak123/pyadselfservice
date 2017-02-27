@@ -65,13 +65,22 @@ def do_validate(username, attr3, attr4, attr5):
              base32 = calc_base32(encrypt_val(username))
              totp = TOTP(base32)
              otp = totp.now()
-             email = EmailMessage(subject='OTP for AD Password Reset', body='Your OTP is %s ' % otp, to=[str(conn.entries[0].mail.value)])
-             email.send()
-             return('YGFRafd827343wdhgFDHGFDSFGHVFSNC')
+             try:
+               email = EmailMessage(subject='OTP for AD Password Reset', body='Your OTP is %s ' % otp, to=[str(conn.entries[0].mail.value)])
+               email.send()
+               return('YGFRafd827343wdhgFDHGFDSFGHVFSNC')
+               conn.unbind()
+               sys.exit(0)
+             except Exception as e:
+               return str('SMTP Error: %s' %e)
+               conn.unbind()
+               sys.exit(0)
     else:
-        return ('Please verify the entered values. It does not match with AD')
-  except:
-    return ('Wrong username. Please verify if the username entered is accurate. If you still think the username is correct, please report this error to IT Support Team')
+        return ('Wrong details entered. Please verify if the Username and other details enetered are correct. If you still feel these details were correct, please go back and try again')
+        conn.unbind()
+        sys.exit(0)
+  except Exception as e:
+    return ('Wrong details entered. Please verify if the Username and other details enetered are correct. Please go back, anter the correct details and try again')
     sys.exit(0)
 
 def do_reset(username, newpass):
@@ -105,7 +114,9 @@ def do_reset(username, newpass):
             conn.extend.microsoft.modify_password(user_dn, newpass, old_password=newpass)
             msg = str(conn.result)
             if 'constraintViolation' in msg:
-               return ('Your password could not be changed. Please verify if the password entered comply with password policy.\nAdditional Message %s' %msg)
+               return ('Your password could not be changed. The password you entered  does not comply with the password policy. Please go back, enter a valid password and try again')
+               conn.unbind()
+               sys.exit(0)
          except:
             conn = ldap3.Connection(server, settings.PYADSELFSERVICE_USERNAME, password = settings.PYADSELFSERVICE_PASS, auto_bind=True)
             conn.extend.microsoft.modify_password(user_dn, newpass, old_password=None)
@@ -113,9 +124,12 @@ def do_reset(username, newpass):
             msg = msg.lower()
             if 'success' in msg:
                return ('Congratulations! You\'ve successfully changed your AD password. You may close this window.')
+               conn.unbind()
+               sys.exit(0)
             else:
-               return ('Your password could not be changed. Please verify if the password entered comply with password policy.\nAdditional Message %s' %msg)
-            sys.exit(0)
+               return ('Your password could not be changed. The password you entered  does not comply with the password policy. Please go back, enter a valid password and try again')               
+               conn.unbind()
+               sys.exit(0)
     except:
       return ('Error setting AD password. Please verify network connectivity from this server to Domain Controller')
       sys.exit(0)
@@ -136,4 +150,3 @@ def calc_base32(username):
   except:
     return ('26GN6OWO5F3KX4QU')
     sys.exit(0)
-
