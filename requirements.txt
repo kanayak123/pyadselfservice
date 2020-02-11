@@ -1,4 +1,4 @@
-Django==1.10.3
+Django==1.11.28
 django-bootstrap3-datetimepicker-2==2.4.2
 django-nocaptcha-recaptcha==0.0.19
 django-zxcvbn-password==1.0.5
