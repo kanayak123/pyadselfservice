@@ -25,7 +25,7 @@ __status__ = "Production"
 #Refer to my blogs http://blogger.iAMAmazing.in/
 
 from django.conf import settings
-from django.conf.urls import url
+from django.urls import path
 from django.contrib import admin
 from django.conf.urls.static import static
 #from django.contrib.auth.views import login
@@ -35,8 +35,8 @@ from validateuser import views
 handler500 = views.server_error
 
 urlpatterns = [
-    url(r'^$',views.Home, name='Index0View'),
-    url(r'^validateuser$', views.ADValidate, name='Index1View'),
-    url(r'^otp$', views.OTP, name='Index3View'),
-    url(r'^resetpass$',views.resetpass, name='Index4View'),
+    path('', views.Home, name='Index0View'),
+    path('validateuser/', views.ADValidate, name='Index1View'),
+    path('otp/', views.OTP, name='Index3View'),
+    path('resetpass/',views.resetpass, name='Index4View'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
