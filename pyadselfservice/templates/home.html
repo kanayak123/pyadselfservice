@@ -1,0 +1,24 @@
+<!-- __author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+-->
+
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<strong><p class="ex2">This portal is designed to help users reset thier Active Directory password. Next page will prompt you to authenticate using 2 factors, OTP and a secret stored in your active director account. It is important that you understand your company 'Password Policy' to compose a valid and secure password.<br></p></strong>
+<form method="post" role="form">
+    <table>
+       {{ form }}
+       {% csrf_token %}
+    </table>
+    <input type="submit" value="Continue" class="btn btn-primary" />
+    </form>
+</body>
+{% endblock %}

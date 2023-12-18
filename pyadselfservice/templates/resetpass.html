@@ -1,0 +1,43 @@
+<!-- __author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+-->
+{% extends 'base.html' %}
+{% block content %}
+<body>
+  <form method="post" role="form">
+     <table>
+       {{ form }}
+       {{ form.media }}
+       {% csrf_token %}
+     </table>
+  <input type="submit" value="Submit" class="btn btn-primary" />
+
+<div class="container">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Password Policy</h4>
+        </div>
+        <div class="modal-body">
+          <ul class="a"><li>Password must be unique without reusing any of your previous 5 passwords</li><li>It must be no less than eight (8) characters and should be a complex mix of uppercase/lowercase/numbers/special characters</li><li>Should not contain your First or Last Name</li></ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
+</body>
+{% endblock %}

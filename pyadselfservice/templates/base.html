@@ -1,0 +1,51 @@
+<!-- __author__ = "Amith Nayak (iAMAmazing)"
+__copyright__ = "Copyright 2016, iAMAmazing"
+__credits__ = ["Amith Nayak (iAMAmazing)"]
+__license__ = "GPL"
+__version__ = "3"
+__maintainer__ = "Amith Nayak (iAMAmazing)"
+__email__ = "kanayak123@yahoo.co.in"
+__status__ = "Production"
+#Refer to my blogs http://blogger.iAMAmazing.in/
+-->
+
+<!DOCTYPE html>
+<html>
+<style>
+    p.ex1 {
+  margin-left: 0.3cm;
+}
+    p.ex2 {
+  margin-left: 0.7cm;
+}
+    .btn.btn-primary {
+  margin-left: 0.3cm;
+}
+    th {
+  padding-left: 0.3cm;
+}
+
+    .btn.btn-info {
+  margin-left: 0.3cm;
+}
+    ul.a {
+  list-style-type: circle;
+  margin-left: 0.3cm;
+}
+
+</style>
+
+<head>
+{% load static %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src='//www.google.com/recaptcha/api.js'></script>
+    <img src="{% static "logo.jpg" %}" alt="logo" />
+    <link rel="icon" href="{% static "favicon.ico" %}">
+    <!-- load all required js/css yourself here -->
+</head>
+
+{% block content %}
+{% endblock %}
+</html>
